@@ -1,0 +1,7 @@
+.Wrapper {
+    width: 80%;
+    height: 80%;
+}
+.recharts-layer .recharts-polar-radius-axis {
+    display: none;
+}
