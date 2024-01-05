@@ -7,8 +7,6 @@ import Navt from './components/Navt';
 import Navl from './components/Navl';
 import Dashboard from './pages/Dashboard';
 
-import 'bootstrap/dist/css/bootstrap.css';
-
 import './styles/index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

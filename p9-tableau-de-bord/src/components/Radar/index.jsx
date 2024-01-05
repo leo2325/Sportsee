@@ -1,33 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 
-const data = [
-  {
-    subject: 'Intensité',
-    A: 90
-  },
-  {
-    subject: 'Vitesse',
-    A: 200
-  },
-  {
-    subject: 'Force',
-    A: 50
-  },
-  {
-    subject: 'Endurance',
-    A: 40
-  },
-  {
-    subject: 'Energie',
-    A: 80
-  },
-  {
-    subject: 'Cardio',
-    A: 120
-  },
-];
-
 function RadarRender() {
   const [performanceData, setPerformanceData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -59,10 +32,11 @@ function RadarRender() {
       const kindArray = performanceData.data.kind;
       const dataArray = performanceData.data.data;
 
-      const rechartsObj = {};
+      const rechartsObj = [];
       dataArray.forEach(({ kind, value }) => {
         const kindName = kindArray[kind];
-        rechartsObj[kindName] = value;
+        // rechartsObj[kindName] = value;
+        rechartsObj.push({ subject: kindName, A: value });
       });
 
       setRechartsArray(rechartsObj);
@@ -72,7 +46,7 @@ function RadarRender() {
   return (
     <section id='Radar' className='Stats_section'>
       <ResponsiveContainer width="100%" height="100%">
-        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={rechartsArray}>
           <PolarGrid />
           <PolarAngleAxis dataKey="subject" />
           <PolarRadiusAxis />

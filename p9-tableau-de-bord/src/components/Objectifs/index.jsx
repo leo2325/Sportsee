@@ -27,35 +27,44 @@ function Objectifs() {
       }))
     : [];
 
-  const style = {
-    top: '50%',
-    right: 0,
-    transform: 'translate(0, -50%)',
-    lineHeight: '24px',
-  };
+ 
 
   return (
     <section id='Objectifs' className='Stats_section'>
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          width={500}
-          height={300}
-          data={chartData}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend wrapperStyle={style} />
-          <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-        </LineChart>
-      </ResponsiveContainer>
+      <ResponsiveContainer 
+  width="100%" 
+  height="72%"
+>
+  <LineChart  
+    data={chartData}
+  >
+    {/* ... autres composants d'axe et de grille ... */}
+    <XAxis 
+      dataKey="name" 
+      stroke="#FFFFFF"   // Couleur du texte de l'axe des X
+      tick={{ fill: '#FFFFFF', opacity: '0.5' }}
+      axisLine={{ stroke: '#FF0000' }}  // Couleur de la barre de l'axe des X
+      tickLine={false}  // Désactive les lignes de grille
+    />
+
+    <YAxis 
+      hide  // Cache l'axe des Y à l'écran
+      axisLine={{ stroke: '#FF0000' }}
+      tickLine={false}  // Désactive les lignes de grille
+      domain={['dataMin', 'dataMax']}  // Définir le domaine pour correspondre aux valeurs min et max des données
+    />
+
+    <Line 
+      type="monotone" 
+      dataKey="pv" 
+      stroke="#FFFFFF" 
+      opacity={'0.5'}
+      strokeWidth={2} 
+      dot={false}
+    />
+
+  </LineChart>
+</ResponsiveContainer>
     </section>
   );
 }

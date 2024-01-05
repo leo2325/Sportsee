@@ -172,6 +172,20 @@ code {
 	grid-template-columns: repeat(3, 1fr);
   grid-gap: 40px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   #DailyActivities {
     width: 835px ;
     height: 320px;
@@ -181,6 +195,10 @@ code {
     grid-column-end: 2;
     grid-row-start: 1;
     grid-row-end: 2;
+  }
+  #DailyActivities-titles_container {
+    width: 80%;
+    margin: 0 auto;
   }
   #DailyActivities-titles_container, 
   #DailyActivities-title_container, 
@@ -198,7 +216,6 @@ code {
         letter-spacing: 0px;
         text-align: left;
         margin: 40px auto;
-        
       }
     #DailyActivities-index_container {
       width: 277px;
@@ -219,19 +236,33 @@ code {
         }
 
 
-    .DailyActivities-graph_container {
-      width: 702px;
-      height: 145px;
-    }
-    .recharts-wrapper {
-      width: 100%;
-      height: 100%;
+   
+    .recharts-responsive-container {
+      display: flex;
+      justify-content: center;
     }
     .recharts-legend-wrapper, .recharts-tooltip-wrapper {
       display: none;
     }
       
-  .Stats_container {
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    .Stats_container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -282,15 +313,20 @@ code {
   align-items: center;
 }
   .icon_container {
+    display:flex;
+    justify-content: center;
+    align-items: center;
     width: 60px;
     height: 60px;
     border-radius: 5px;
     background-color: aquamarine;
     text-align: center;
-    padding-top: 17px;
+  }
+  .icon_container img {
+    Width: 18.84px;
+    Height: 18.74px;
   }
   .infos_container {
-    height: 51px;
     margin: 9px;
   }
     .infos_container p {
@@ -312,7 +348,25 @@ code {
       
     }
 
-#Calories{background-color: #fbeaeb;}
-#Proteines{background-color: #E9F4FB;}
-#Glucides{background-color: #FBF6E5;}
-#Lipides{background-color: #FBEAEF;}
+#Calories .icon_container {background-color: #fbeaeb;}
+#Proteines .icon_container {background-color: #E9F4FB;}
+#Glucides .icon_container {background-color: #FBF6E5;}
+#Lipides .icon_container {background-color: #FBEAEF;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Objectifs {
+  background-color: #FF0000;
+  display: flex;
+  align-items: flex-end;
+}
