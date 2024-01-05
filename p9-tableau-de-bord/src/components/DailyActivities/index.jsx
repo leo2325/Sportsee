@@ -1,6 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, CartesianGrid, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import fetchActivityData from '../../services/activityService';
+
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+
+    return (
+      <div className="custom-tooltip">
+        <p>{`Poids: ${data.kilogram} kg`}</p>
+        <p>{`Calories: ${data.calories} KCal`}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
 
 function DailyActivities() {
   const [activityData, setActivityData] = useState(null);
@@ -26,16 +41,7 @@ function DailyActivities() {
       }))
     : [];
 
-  const minYKg = Math.floor(adaptedData.reduce((min, data) => Math.min(min, data.kilogram), Number.POSITIVE_INFINITY));
-  const maxYKg = Math.ceil(adaptedData.reduce((max, data) => Math.max(max, data.kilogram), Number.NEGATIVE_INFINITY));
-
-  const minYCal = Math.floor(adaptedData.reduce((min, data) => Math.min(min, data.calories), Number.POSITIVE_INFINITY));
-  const maxYCal = Math.ceil(adaptedData.reduce((max, data) => Math.max(max, data.calories), Number.NEGATIVE_INFINITY));
-
-  const yDomainKg = [minYKg, maxYKg + 1];
-  const yDomainCal = [minYCal, maxYCal + 1];
-
-  const tickCount = 3;
+  const yTicks = [0, 300, 600];
 
   return (
     <section id='DailyActivities'>
@@ -62,19 +68,24 @@ function DailyActivities() {
           barCategoryGap="35%"
           style={{ backgroundColor: '#FBFBFB' }}
         >
+          <CartesianGrid
+            height="100%"
+            strokeDasharray="3"
+            vertical={false}
+            stroke="#DEDEDE"
+          />
           <XAxis axisLine={false} tickLine={false} dataKey='id' />
           <YAxis
             orientation="right"
             axisLine={false}
             tickLine={false}
             allowDataOverflow={true}
-           
-            tickCount={tickCount}
+            ticks={yTicks}
           />
-          <Tooltip cursor={{ fill: 'transparent' }} />
+          <Tooltip content={<CustomTooltip />} cursor={{ fill: 'transparent' }} />
           <Legend />
-          <Bar dataKey='kilogram' fill='#282D30' />
-          <Bar dataKey='calories' fill='#E60000' />
+          <Bar dataKey='kilogram' fill='#282D30' radius={[5, 5, 0, 0]} />
+          <Bar dataKey='calories' fill='#E60000' radius={[5, 5, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </section>
