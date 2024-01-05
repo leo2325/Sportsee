@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import fetchActivityData from '../../services/activityService';
 
 function DailyActivities() {
-  const [activityData, setActivityData] = React.useState(null);
+  const [activityData, setActivityData] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await fetchActivityData(18);
@@ -26,21 +26,6 @@ function DailyActivities() {
       }))
     : [];
 
-  const CustomBar = ({ x, y, width, height, fill }) => {
-    const borderRadius = 5; // Ajustez le rayon pour arrondir les coins selon vos préférences
-    return (
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        fill={fill}
-        rx={borderRadius}
-        ry={borderRadius}
-      />
-    );
-  };
-
   const minYKg = Math.floor(adaptedData.reduce((min, data) => Math.min(min, data.kilogram), Number.POSITIVE_INFINITY));
   const maxYKg = Math.ceil(adaptedData.reduce((max, data) => Math.max(max, data.kilogram), Number.NEGATIVE_INFINITY));
 
@@ -49,6 +34,8 @@ function DailyActivities() {
 
   const yDomainKg = [minYKg, maxYKg + 1];
   const yDomainCal = [minYCal, maxYCal + 1];
+
+  const tickCount = 3;
 
   return (
     <section id='DailyActivities'>
@@ -65,40 +52,30 @@ function DailyActivities() {
           </p>
         </div>
       </div>
-      {/* ResponsiveContainer est à l'extérieur de div avec la classe 'DailyActivities-graph_container' */}
-      <ResponsiveContainer width='100%' height='100%' style={{ position: 'relative' }}>
-        <div className='DailyActivities-graph_container' style={{ position: 'absolute', bottom: 0 }}>
-          <BarChart
-            width={702}
-            height={145}
-            data={adaptedData}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 30,
-              bottom: 5,
-            }}
-            barGap={8}
-            barCategoryGap="35%"
-            style={{
-              backgroundColor: '#FBFBFB',
-            }}
-          >
-            <XAxis axisLine={false} tickLine={false} dataKey='id' />
-            <YAxis
-              orientation="right"
-              axisLine={false}
-              tickLine={false}
-              allowDataOverflow={true}
-              domain={yDomainKg}
-              tickCount={3}
-            />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey='kilogram' fill='#282D30' shape={<CustomBar />} domain={yDomainKg} />
-            <Bar dataKey='calories' fill='#E60000' shape={<CustomBar />} domain={yDomainCal} />
-          </BarChart>
-        </div>
+      <ResponsiveContainer width='100%' height='70%'>
+        <BarChart
+          width={702}
+          height={145}
+          data={adaptedData}
+          margin={{ top: 5, right: 30, left: 30, bottom: 5 }}
+          barGap={8}
+          barCategoryGap="35%"
+          style={{ backgroundColor: '#FBFBFB' }}
+        >
+          <XAxis axisLine={false} tickLine={false} dataKey='id' />
+          <YAxis
+            orientation="right"
+            axisLine={false}
+            tickLine={false}
+            allowDataOverflow={true}
+           
+            tickCount={tickCount}
+          />
+          <Tooltip cursor={{ fill: 'transparent' }} />
+          <Legend />
+          <Bar dataKey='kilogram' fill='#282D30' />
+          <Bar dataKey='calories' fill='#E60000' />
+        </BarChart>
       </ResponsiveContainer>
     </section>
   );
