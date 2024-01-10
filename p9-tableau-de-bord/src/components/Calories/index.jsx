@@ -22,10 +22,10 @@ function Calories() {
       {userData ? (
         <>
           <div className='icon_container'>
-            <img src={ iconCalories} alt='icône' />
+            <img src={iconCalories} alt='icône' />
           </div>
           <div className='infos_container'>
-            <p className='infoQuantity'>{userData.keyData.calorieCount}kCal</p>
+            <p className='infoQuantity'>{(userData.keyData.calorieCount / 1000).toFixed(3)}kCal</p>
             <p className='quantityValue'>Calories</p>
           </div>
         </>

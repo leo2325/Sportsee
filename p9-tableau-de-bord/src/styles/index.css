@@ -51,7 +51,6 @@ code {
     list-style-type: none;
   }
   #Navl_container li{
-    font-family: Roboto;
     font-size: 24px;
     font-weight: 500;
     line-height: 24px;
@@ -117,7 +116,6 @@ code {
   height: 24px;
 }
 #copyright p {
-  font-family: Roboto;
   font-size: 12px;
   font-weight: 500;
   line-height: 24px;
@@ -143,7 +141,6 @@ code {
   #sayHi h1{
     width: 355px;
     height: 24px;
-      font-family: Roboto;
       font-size: 48px;
       font-weight: 500;
       line-height: 24px;
@@ -153,7 +150,6 @@ code {
   #sayHi p{
     width: 414px;
     height: 24px;
-      font-family: Roboto;
       font-size: 18px;
       font-weight: 400;
       line-height: 24px;
@@ -209,7 +205,6 @@ code {
     align-items: center;
   }
       #DailyActivities-title_container h3{
-        font-family: Roboto;
         font-size: 15px;
         font-weight: 500;
         line-height: 24px;
@@ -224,7 +219,6 @@ code {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        font-family: Roboto;
         font-size: 14px;
         font-weight: 500;
         line-height: 24px;
@@ -237,13 +231,7 @@ code {
 
 
    
-    .recharts-responsive-container {
-      display: flex;
-      justify-content: center;
-    }
-    .recharts-legend-wrapper, .recharts-tooltip-wrapper {
-      display: none;
-    }
+ 
       
   
   
@@ -276,14 +264,18 @@ code {
       .Stats_section {
         width: 258px;
         height: 263px;
-        background-color: #fbfbfb;
+        border-radius: 5px;
       }
 
       #Radar {
         background-color: #282D30;
         box-shadow: 0px 2px 4px 0px #00000005;
-        border-radius: 5px;
       }
+
+      #KPI {
+        background-color: #fbfbfb;
+      }
+      
 
   .Diet_container {
       width: 100%;
@@ -332,7 +324,6 @@ code {
     .infos_container p {
       width: 91px; 
       height: 24px;
-      font-family: Roboto;
       text-align: left;
       line-height: 24px;
       letter-spacing: 0px;
@@ -368,7 +359,20 @@ code {
 #Objectifs {
   background-color: #FF0000;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-start
+}
+#Objectifs h2 {
+  padding-left: 24px;;
+  width: 147px;
+  height: 48px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #FFFFFF;
+  opacity: 45%;
 }
 
 
@@ -382,15 +386,66 @@ code {
 
 
 
-
-.tooltip_container{
+.custom-tooltip {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap : 20px;
+  gap : 16px;
   align-items: center;
   background-color: #E60000;
   color: white;
   padding: 20px 7px;
+  width: 39px;
+  height: 63px;
+  margin-left: 16px;
+  font-weight: 500;
+  font-size: 7px;
+  text-align: center;
 
+}
+
+
+
+
+
+
+#KPI {
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  text-align: center;
+  position: relative;
+}
+
+.scoreTitle {
+  padding-left: 16px;
+  grid-row: 1;
+  grid-column: 1; 
+  font-weight: 500;
+  text-align: left;
+}
+.scoreValue {
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+}
+.scoreValue span {
+  font-weight: 700;
+  font-Size: 26px;
+  text-align: Center;
+}
+.RadialBarChartCenter{
+  grid-column-start: 1;
+  grid-row-start: 1;
+  grid-column-end: 4;
+  grid-row-end: 4;
+}
+
+.text-container {
+  grid-row: 2; 
+  grid-column: 2;
+  text-align: center;
 }

@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, CartesianGrid, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  CartesianGrid,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 import fetchActivityData from '../../services/activityService';
 
 const CustomTooltip = ({ active, payload }) => {
@@ -8,8 +16,8 @@ const CustomTooltip = ({ active, payload }) => {
 
     return (
       <div className="custom-tooltip">
-        <p>{`Poids: ${data.kilogram} kg`}</p>
-        <p>{`Calories: ${data.calories} KCal`}</p>
+        <p>{`${data.kilogram} kg`}</p>
+        <p>{`${data.calories} KCal`}</p>
       </div>
     );
   }
@@ -21,9 +29,10 @@ function DailyActivities() {
   const [activityData, setActivityData] = useState(null);
 
   useEffect(() => {
+    const userId = window.location.pathname.split('/').pop();
     const fetchData = async () => {
       try {
-        const data = await fetchActivityData(18);
+        const data = await fetchActivityData(userId);
         setActivityData(data);
       } catch (error) {
         console.error('Erreur lors de la récupération des données activité :', error);
@@ -35,13 +44,11 @@ function DailyActivities() {
 
   const adaptedData = activityData
     ? activityData.sessions.map((session, index) => ({
-        id: index + 1,
-        kilogram: session.kilogram,
-        calories: session.calories,
-      }))
+      id: index + 1,
+      kilogram: session.kilogram,
+      calories: session.calories,
+    }))
     : [];
-
-  const yTicks = [0, 300, 600];
 
   return (
     <section id='DailyActivities'>
@@ -74,18 +81,31 @@ function DailyActivities() {
             vertical={false}
             stroke="#DEDEDE"
           />
-          <XAxis axisLine={false} tickLine={false} dataKey='id' />
+          <XAxis dataKey='id' />
           <YAxis
-            orientation="right"
+            orientation='right'
+            yAxisId="right"
             axisLine={false}
             tickLine={false}
             allowDataOverflow={true}
-            ticks={yTicks}
+            tickCount={3}
+            domain={["dataMin -2", "dataMax +1"]}
+            dataKey="kilogram"
           />
-          <Tooltip content={<CustomTooltip />} cursor={{ fill: 'transparent' }} />
-          <Legend />
-          <Bar dataKey='kilogram' fill='#282D30' radius={[5, 5, 0, 0]} />
-          <Bar dataKey='calories' fill='#E60000' radius={[5, 5, 0, 0]} />
+          <YAxis hide yAxisId="left" dataKey="calories" allowDataOverflow={true} />
+          <Tooltip content={<CustomTooltip />} />
+          <Bar
+            dataKey='kilogram'
+            yAxisId="right"
+            fill='#282D30'
+            radius={[50, 50, 0, 0]}
+          />
+          <Bar
+            dataKey='calories'
+            yAxisId="left"
+            fill='#E60000'
+            radius={[50, 50, 0, 0]}
+          />
         </BarChart>
       </ResponsiveContainer>
     </section>
