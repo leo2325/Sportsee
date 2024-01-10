@@ -18,7 +18,10 @@ import Radar from '../components/Radar'
 
 import '../styles/index.css';
 
+
+
 function Dashboard() {
+    
     return (
         <section id='Dashboard_container'>
             
