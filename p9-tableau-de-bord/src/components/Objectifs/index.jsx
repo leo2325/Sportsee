@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import fetchAverageSessionsData from '../../services/average-sessionsService';
 import '../../styles/index.css';
-
-
-
 
 const dataKeyValue = (day) => {
   switch (day) {
@@ -27,8 +24,18 @@ const dataKeyValue = (day) => {
   }
 };
 
+function CustomTooltip({ active, payload }) {
+  if (active && payload && payload.length) {
+    const sessionLength = payload[0].payload.sessionLength;
+    return (
+      <div className="custom-tooltip">
+        {`${sessionLength} min`}
+      </div>
+    );
+  }
 
-
+  return null;
+}
 
 function Objectifs() {
   const [averageSessionsData, setAverageSessionsData] = useState(null);
@@ -48,13 +55,11 @@ function Objectifs() {
 
   const chartData = averageSessionsData
     ? averageSessionsData.sessions.map((session) => ({
-        name: session.day, 
-        pv: session.sessionLength,
+        name: dataKeyValue(session.day), 
+        sessionLength: session.sessionLength,
         fill: '#FF0000',
       }))
     : [];
-
- 
 
   return (
     <section id='Objectifs' className='Stats_section'>
@@ -63,10 +68,13 @@ function Objectifs() {
         width="100%" 
         height="72%"
       >
-  
         <LineChart  
           data={chartData}
         >
+          <Tooltip 
+            wrapperStyle={{ zIndex: 1000 }}
+            content={<CustomTooltip />}
+          />
           <XAxis 
             type="category"
             dataKey="name" 
@@ -85,7 +93,7 @@ function Objectifs() {
           />
           <Line 
             type="monotone" 
-            dataKey="pv" 
+            dataKey="sessionLength"  // Utilisez sessionLength comme dataKey
             stroke="#FFFFFF" 
             opacity={'0.5'}
             strokeWidth={2} 
