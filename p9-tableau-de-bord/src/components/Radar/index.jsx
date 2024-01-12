@@ -48,7 +48,7 @@ function RadarRender() {
       })
       .catch((error) => 
         console.error('Erreur lors de la récupération des données utilisateur :', error));
-        setError(error.message);
+        setError(error);
         setLoading(false);
   }, []);
 

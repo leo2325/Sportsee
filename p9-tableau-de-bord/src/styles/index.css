@@ -164,7 +164,6 @@ code {
   display:  flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
 }
 #DailyActivities-titles_container {
   width: 80%;
@@ -181,15 +180,13 @@ code {
 #DailyActivities-index_container {
   width: 277px;
   height: 25px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   font-size: 14px;
   font-weight: 500;
   line-height: 24px;
   letter-spacing: 0px;
   text-align: left;        
+}
+#DailyActivities-index_container p{
 }
 #DailyActivities-index_container span{
   font-size: 80px;
@@ -388,4 +385,19 @@ code {
   font-size: 8px; 
   font-weight: 500;
   line-height: 24px;
+}
+
+.custom-container {
+  position: relative;
+}
+
+.custom-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0; /* La largeur sera ajustée dynamiquement par le JavaScript */
+  height: 100%;
+  background-color: black;
+  z-index: -1;
 }

@@ -8,14 +8,17 @@ const data = [
   {
     name: 'objectifs',
     uv: 0.3,
-    pv: 1,
-    fill: '#FF0000',
   }
 ];
 
 // Composant React KPI
 function KPI() {
-  const uvValue = data[0] ? data[0].uv * 100 : null;
+
+
+
+
+  
+  const uvValue = data[0] ? data[0].uv : null;
 
   return (
     <section id='KPI' className='Stats_section'>
@@ -23,7 +26,7 @@ function KPI() {
         <h2 className="scoreTitle">Score</h2>
         <div className="text-container">
           <p className="scoreValue">
-            <span className="objectifSentence">{uvValue}% </span>
+            <span className="objectifSentence">{uvValue * 100} % </span>
             <br/>de votre objectif  
           </p>
         </div>

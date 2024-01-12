@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/index.css';
 import fetchUserData from '../../services/userService';
-
 import iconCalories from '../../assets/iconCalories.svg';
 
 function Calories() {
+  
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     // Récupération de l'ID à partir de l'URL
     const userId = window.location.pathname.split('/').pop();
-
     // Appel du service pour obtenir les données utilisateur
     fetchUserData(userId)
       .then((data) => setUserData(data))

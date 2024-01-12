@@ -39,14 +39,16 @@ function CustomTooltip({ active, payload }) {
 
 function Objectifs() {
   const [averageSessionsData, setAverageSessionsData] = useState(null);
-
+  const [mouseXpos, setMouseXpos] = useState(0);
   useEffect(() => {
+    const userId = window.location.pathname.split('/').pop();
+
     const fetchData = async () => {
       try {
-        const data = await fetchAverageSessionsData(18); // Remplacez 18 par ${id} ?
+        const data = await fetchAverageSessionsData(userId);
         setAverageSessionsData(data);
       } catch (error) {
-        console.error('Erreur lors de la récupération des données d\'activité :', error);
+        console.error('Erreur lors de la récupération des données d\'objectif:', error);
       }
     };
 
@@ -71,10 +73,6 @@ function Objectifs() {
         <LineChart  
           data={chartData}
         >
-          <Tooltip 
-            wrapperStyle={{ zIndex: 1000 }}
-            content={<CustomTooltip />}
-          />
           <XAxis 
             type="category"
             dataKey="name" 
@@ -88,16 +86,23 @@ function Objectifs() {
           <YAxis 
             hide 
             axisLine={{ stroke: '#FF0000' }}
-            tickLine={ false }  // Désactive les lignes de grille
+            tickLine={ false }
             domain={['dataMin', 'dataMax']} 
           />
           <Line 
             type="monotone" 
-            dataKey="sessionLength"  // Utilisez sessionLength comme dataKey
+            dataKey="sessionLength"
             stroke="#FFFFFF" 
             opacity={'0.5'}
             strokeWidth={2} 
             dot={false}
+          />
+          <Tooltip 
+            content={<CustomTooltip />}
+            cursor={{
+              stroke: 'rgba(0)',
+              strokeWidth: 2,
+            }}
           />
         </LineChart>
       </ResponsiveContainer>
