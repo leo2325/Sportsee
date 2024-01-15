@@ -11,4 +11,4 @@ const fetchUserData = async (id) => {
   }
 };
 
-export default fetchUserData;
+export default fetchUserData; 

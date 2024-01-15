@@ -56,7 +56,7 @@ function Objectifs() {
       }
     };
     fetchData();
-  }, []);
+  }, []); 
 
   const chartData = averageSessionsData
     ? averageSessionsData.sessions.map((session) => ({

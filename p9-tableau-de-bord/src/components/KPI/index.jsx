@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { RadialBarChart, RadialBar, PolarAngleAxis, ResponsiveContainer } from 'recharts';
+import fetchUserData from '../../services/userService';
 
 import '../../styles/index.css';
 
@@ -8,11 +9,42 @@ const data = [
   {
     name: 'objectifs',
     uv: 0.3,
-  }
+  } 
 ];
 
 // Composant React KPI
 function KPI() {
+  
+  
+  
+  
+  
+
+
+  
+  
+  const [userData, setUserData] = useState(null);
+
+  // Récupération du conteneur
+  const div = document.querySelector( '#KPI' );
+  
+  useEffect(() => {
+    // Récupération de l'ID à partir de l'URL
+    const userId = window.location.pathname.split('/').pop();
+
+    const userData = async () => {
+      try {
+        const data = await fetchUserData(userId);
+        setUserData(data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données d\'objectif:', error);
+      }
+    };
+    userData();
+  }, []); 
+
+
+
 
 
 
